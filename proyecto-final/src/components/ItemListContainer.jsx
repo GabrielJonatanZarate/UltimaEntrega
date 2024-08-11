@@ -3,7 +3,7 @@ import arrayProductos from "../assets/json/productos.json"
 import ItemList from "./ItemList"
 
 const ItemListContainer = ({ texto }) => {
-    const [items, setItems] = useState([])
+    const [items, setItems] = useState([]);
     useEffect(() => {
         const promesa = new Promise(resolve => {
             setTimeout(() => {
@@ -20,17 +20,9 @@ const ItemListContainer = ({ texto }) => {
     return (
         <div className="container">
             <div className="row">
-                <div className="col">
-                    <div className="alert alert-danger" role="alert">
-                        <ItemList></ItemList>
-                    </div>
-                </div>
+                <ItemList items={items} />
             </div>
         </div>
-
-
-
-
     )
 }
 
