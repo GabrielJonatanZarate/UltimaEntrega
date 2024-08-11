@@ -1,0 +1,6 @@
+.imagenBanner {
+  background-image: url("images/banner.webp");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
