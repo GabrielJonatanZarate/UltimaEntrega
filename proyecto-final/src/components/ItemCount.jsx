@@ -1,33 +1,43 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom";
 
-const ItemCount = ({stock}) => {
+const ItemCount = ({ stock, onAdd }) => {
     const [contador, setContador] = useState(1);
-    const [itemStock, setItemStock] = useState(stock)
+    const [itemStock, setItemStock] = useState(stock);
+    const [visible, setVisible] = useState(true);
 
-const incrementar = () => {
-    if (contador < itemStock) {
-        setContador(contador + 1)
+
+    const incrementar = () => {
+        if (contador < itemStock) {
+            setContador(contador + 1)
+        }
+
     }
 
-}
+    const decrementar = () => {
+        if (contador > 1) {
+            setContador(contador - 1)
+        }
 
-const decrementar = () => {
-    if (contador > 1) {
-        setContador(contador - 1)
     }
 
-}
-const onAdd = () => {
-    if (contador <= itemStock) {
-        setItemStock(itemStock - contador);
+    const addToCart = () => {
+        if (contador <= itemStock) {
+            setItemStock(itemStock - contador);
+            onAdd(contador);
+            setContador(1);
+            setVisible(false);
+        }
+
     }
 
-}
-
+    useEffect(() => {
+        setItemStock(stock)
+    }, [stock])
 
     return (
         <>
-
+            {visible ? 
             <div className="container">
                 <div className="row">
                     <div className="col">
@@ -40,10 +50,10 @@ const onAdd = () => {
                 </div>
                 <div className="row my-1">
                     <div className="col">
-                        <button type="button" className="btn btn-dark round-1" onClick={onAdd}>Agregar al carrito</button>
+                        <button type="button" className="btn btn-dark rounded-pill" onClick={addToCart}>Agregar al carrito</button>
                     </div>
                 </div>
-            </div>
+            </div> : <Link to= {"/cart"} className="btn btn-dark rounded-pill">Terminar mi compra</Link>}
         </>
     )
 }
